@@ -20,18 +20,17 @@ class DvdQuery extends \Database{
   }
   //Should execute the query
   public function find(){
-    // $sql = "
-    //   SELECT *
-    //   FROM dvds
-    //   LIMIT 10
-    // ";
-    //
-    // $statement = self::$pdo->prepare($sql);
+    $sql = "
+      SELECT *
+      FROM dvds
+      LIMIT 10
+    ";
+    $statement = self::$pdo->prepare($sql);
     // //$statement->bindParam(1, $this->name);
-    // $statement->execute();
-    // $dvds = $statement->fetchAll(PDO::FETCH_OBJ);
-    // var_dump($dvds);
-
+    $statement->execute();
+    //Added the \ to remove it from the namespace (just like on top with DB)
+    $dvds = $statement->fetchAll(\PDO::FETCH_OBJ);
+    var_dump($dvds);
   }
 
 }
