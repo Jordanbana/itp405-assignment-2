@@ -7,6 +7,7 @@ require './Database.php';
 
 class DvdQuery extends \Database{
   private $titleOfDVD;
+  private $ordered = 0;
 
   //Shoudl take a string and maybe set it to a variable
   public function titleContains(String $title){
@@ -15,15 +16,27 @@ class DvdQuery extends \Database{
   }
   //Order function maybe change a boolean or something
   public function orderByTitle(){
+    $this->ordered = 1;
   }
   //Should execute the query
   public function find(){
-    $sql = "
-      SELECT title,award
-      FROM dvds
-      WHERE title like ?
-      LIMIT 10
-    ";
+    if ($this->ordered == 1){
+      $sql = "
+        SELECT title,award
+        FROM dvds
+        WHERE title like ?
+        ORDER BY title ASC
+        LIMIT 25
+      ";
+    }
+    else{
+      $sql = "
+        SELECT title,award
+        FROM dvds
+        WHERE title like ?
+        LIMIT 25
+      ";
+    }
     $statement = self::$pdo->prepare($sql);
     $like = '%' . $this->titleOfDVD . '%';
     $statement->bindParam(1, $like);

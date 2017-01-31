@@ -9,7 +9,7 @@ use Database\Query\DvdQuery;
 // Query 1 (with orderByTitle)
 $dvdQuery = new DvdQuery();
 $dvdQuery->titleContains('a');
-// $dvdQuery->orderByTitle();
+$dvdQuery->orderByTitle();
 $dvds = $dvdQuery->find();
 var_dump($dvds);
 
