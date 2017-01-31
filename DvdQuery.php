@@ -5,10 +5,8 @@ namespace Database\Query;
 
 require './Database.php';
 
-
 class DvdQuery extends \Database{
   private $titleOfDVD;
-
 
   //Shoudl take a string and maybe set it to a variable
   public function titleContains(String $title){
@@ -21,12 +19,14 @@ class DvdQuery extends \Database{
   //Should execute the query
   public function find(){
     $sql = "
-      SELECT *
+      SELECT title,award
       FROM dvds
+      WHERE title like ?
       LIMIT 10
     ";
     $statement = self::$pdo->prepare($sql);
-    // //$statement->bindParam(1, $this->name);
+    $like = '%' . $this->titleOfDVD . '%';
+    $statement->bindParam(1, $like);
     $statement->execute();
     //Added the \ to remove it from the namespace (just like on top with DB)
     $dvds = $statement->fetchAll(\PDO::FETCH_OBJ);

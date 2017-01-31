@@ -8,10 +8,10 @@ use Database\Query\DvdQuery;
 
 // Query 1 (with orderByTitle)
 $dvdQuery = new DvdQuery();
-$dvdQuery->titleContains('Die');
+$dvdQuery->titleContains('a');
 // $dvdQuery->orderByTitle();
 $dvds = $dvdQuery->find();
-// var_dump($dvds);
+var_dump($dvds);
 
 // // Query 2 (without orderByTitle)
 // $dvdQuery = new DvdQuery();
