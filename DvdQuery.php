@@ -22,20 +22,23 @@ class DvdQuery extends \Database{
   public function find(){
     if ($this->ordered == 1){
       $sql = "
-        SELECT title,award
+        SELECT title, dvds.id, rating_name
         FROM dvds
+        INNER JOIN ratings
+        ON dvds.rating_id = ratings.id
         WHERE title like ?
         ORDER BY title ASC
-        LIMIT 25
       ";
     }
     else{
       $sql = "
-        SELECT title,award
+        SELECT title, dvds.id, rating_name
         FROM dvds
+        INNER JOIN ratings
+        ON dvds.rating_id = ratings.id
         WHERE title like ?
-        LIMIT 25
       ";
+
     }
     $statement = self::$pdo->prepare($sql);
     $like = '%' . $this->titleOfDVD . '%';
